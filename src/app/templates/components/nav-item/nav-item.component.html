@@ -1,0 +1,18 @@
+<mat-toolbar>
+  <h1>FAKE</h1>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<mat-nav-list>
+  <mat-list-item
+    *ngFor="let menu of menus"
+    [routerLink]="menu.link"
+    routerLinkActive="active"
+  >
+    <!-- <span class="list-item"> -->
+    <mat-icon matListItemIcon>{{ menu.icon }}</mat-icon>
+    <div matListItemTitle>
+      {{ menu.name }}
+    </div>
+    <!-- </span> -->
+  </mat-list-item>
+</mat-nav-list>
