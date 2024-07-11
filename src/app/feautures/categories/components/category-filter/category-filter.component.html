@@ -1,0 +1,21 @@
+<mat-form-field appearance="outline" class="w-100">
+  <mat-label>Categories</mat-label>
+  @if(categoryStore.isFullyLoad$ | async) {
+  <ng-container *ngIf="categoryStore.category$ | async as categories">
+    <mat-select [formControl]="selectedCategories" multiple (selectionChange)="onCategoryChangeHandler($event)">
+      <mat-select-trigger>
+        {{selectedCategories.value?.[0] || ''}}
+        @if ((selectedCategories.value?.length || 0) > 1) {
+        <span class="example-additional-selection">
+          (+{{ (selectedCategories.value?.length || 0) - 1 }}
+          {{ selectedCategories.value?.length === 2 ? "autre" : "autres" }})
+        </span>
+        }
+      </mat-select-trigger>
+      @for (category of categories; track category) {
+      <mat-option [value]="category">{{ category }}</mat-option>
+      }
+    </mat-select>
+  </ng-container>
+  }
+</mat-form-field>

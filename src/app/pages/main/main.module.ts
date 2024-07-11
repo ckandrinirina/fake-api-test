@@ -7,8 +7,9 @@ import { ProductsComponent } from './components/products/products.component';
 import { ProductsListComponent } from '../../feautures/products/components/products-list/products-list.component';
 import { CoreModule } from '../../core/core.module';
 import { LoaderComponent } from "../../shared/components/loader/loader.component";
+import { CategoryFilterComponent } from "../../feautures/categories/components/category-filter/category-filter.component";
 @NgModule({
   declarations: [DashboardComponent, ProductsComponent],
-  imports: [CommonModule, MainRoutingModule, ProductsListComponent, CoreModule, LoaderComponent],
+  imports: [CommonModule, MainRoutingModule, ProductsListComponent, CoreModule, LoaderComponent, CategoryFilterComponent],
 })
 export class MainModule {}

@@ -1,10 +1,20 @@
 <div class="container-fluid mt-2">
-  <h2>Product List</h2>
-  <ng-container *ngIf="productsStore.isFullyLoad$ | async; else loading">
-    <ng-container *ngIf="productsStore.products$ | async as products">
-      <app-products-list [products]="products"></app-products-list>
-    </ng-container>
+  <h3>Liste des produits</h3>
+
+  @if(productsStore.isFullyLoad$ | async) {
+  <ng-container *ngIf="productsStore.filteredProducts$ | async as products">
+    <div class="row">
+      <div class="col-3">
+        <app-category-filter
+          (onCategoryChange)="handleFilterChange($event)"
+        ></app-category-filter>
+      </div>
+    </div>
+    <app-products-list [products]="products"></app-products-list>
   </ng-container>
+  } @else {
+  <app-loader></app-loader>
+  }
 </div>
 
 <ng-template #loading>

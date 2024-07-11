@@ -3,7 +3,6 @@ import {
   Input,
   AfterViewInit,
   ViewChild,
-  OnInit,
 } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,17 +17,24 @@ import { CoreModule } from '../../../../core/core.module';
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss',
 })
-export class ProductsListComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['id', 'title', 'price', 'actions'];
+export class ProductsListComponent implements AfterViewInit {
+  displayedColumns: string[] = [
+    'id',
+    'title',
+    'price',
+    'category',
+    'image',
+    'actions',
+  ];
   dataSource!: MatTableDataSource<Product>;
+  allProducts: Product[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  @Input() products: Product[] = [];
-
-  ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.products);
+  @Input() set products(value: Product[]) {
+    this.allProducts = value;
+    this.dataSource = new MatTableDataSource(value);
   }
 
   ngAfterViewInit() {

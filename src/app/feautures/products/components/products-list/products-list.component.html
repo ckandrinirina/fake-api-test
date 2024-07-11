@@ -17,14 +17,26 @@
 
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Prix</th>
-      <td mat-cell *matCellDef="let row">{{ row.price }}</td>
+      <td mat-cell *matCellDef="let row">{{ row.price }} €</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Catégorie</th>
+      <td mat-cell *matCellDef="let row">{{ row.category }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
+      <td mat-cell *matCellDef="let row">
+        <img [src]="row.image" alt="Image" width="50" />
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
       <td mat-cell *matCellDef="let row">
         <button mat-button (click)="edit(row)">Modifier</button>
-        <button mat-button (click)="delete(row)">Supprimer</button>
+        <button mat-button (click)="delete(row)" color="warn">Supprimer</button>
       </td>
     </ng-container>
 
@@ -33,7 +45,7 @@
   </table>
 
   <mat-paginator
-    [pageSizeOptions]="[10, 50 , 100]"
+    [pageSizeOptions]="[10, 50, 100]"
     aria-label="Sélectionner la page des utilisateurs"
   ></mat-paginator>
 </div>

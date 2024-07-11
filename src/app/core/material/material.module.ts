@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import {
   MatPaginatorIntl,
   MatPaginatorModule,
@@ -39,6 +40,7 @@ import { FrenchMatPaginatorIntl } from '../../shared/Intl/paginator.intl';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSelectModule,
   ],
   exports: [
     MatSidenavModule,
@@ -56,6 +58,7 @@ import { FrenchMatPaginatorIntl } from '../../shared/Intl/paginator.intl';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSelectModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: FrenchMatPaginatorIntl }],
 })
