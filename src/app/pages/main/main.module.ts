@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LayoutModule } from '@angular/cdk/layout';
+import { ProductsComponent } from './components/products/products.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, ProductsComponent],
   imports: [CommonModule, MainRoutingModule],
 })
 export class MainModule {}

@@ -2,8 +2,11 @@
   <mat-sidenav mode="side" opened [fixedInViewport]="true">
     <app-nav-item></app-nav-item>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <!-- <app-toolbar [drawer]="drawer"></app-toolbar> -->
-    <router-outlet></router-outlet>
+  <mat-sidenav-content class="content-container d-flex flex-column">
+    <app-toolbar class="mb-3"></app-toolbar>
+    <div class="content flex-grow-1">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer class="mt-auto"></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

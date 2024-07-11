@@ -21,7 +21,7 @@ export class NavItemComponent {
     },
     {
       name: 'Devis',
-      link: ['/estimate'],
+      link: ['/products'],
       icon: 'receipt-long',
     },
   ];

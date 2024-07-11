@@ -4,6 +4,7 @@ import { MainLayoutComponent } from '../../layouts/components/main-layout/main-l
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginLayoutComponent } from '../../layouts/components/login-layout/login-layout.component';
 import { LoginComponent } from '../auth/components/login/login.component';
+import { ProductsComponent } from './components/products/products.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+      },
+      {
+        path: 'products',
+        component: ProductsComponent,
       },
     ],
   },
