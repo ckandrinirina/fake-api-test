@@ -13,9 +13,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
+import { FrenchMatPaginatorIntl } from '../../shared/Intl/paginator.intl';
 
 @NgModule({
   declarations: [],
@@ -54,5 +57,6 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatSortModule,
   ],
+  providers: [{ provide: MatPaginatorIntl, useClass: FrenchMatPaginatorIntl }],
 })
 export class MaterialModule {}
