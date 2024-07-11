@@ -9,32 +9,48 @@
         />
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center fw-bold mx-3 mb-0">SE CONNECTER</p>
           </div>
 
-          <!-- Email input -->
-          <div>
+          <div class="mb-20">
             <mat-form-field class="w-100" appearance="outline">
-              <mat-label>Adresse e-mail</mat-label>
+              <mat-label>Username</mat-label>
               <input
                 matInput
                 type="email"
-                placeholder="Entrez une adresse e-mail valide"
+                placeholder="Username"
+                formControlName="username"
+                required
               />
+              <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                Username est requise
+              </mat-error>
             </mat-form-field>
           </div>
 
-          <!-- Password input -->
-          <div>
+          <div class="mb-20">
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>Mot de passe</mat-label>
               <input
+                [type]="passwordVisible ? 'text' : 'password'"
                 matInput
                 type="password"
                 placeholder="Entrez le mot de passe"
+                formControlName="password"
+                required
               />
+              <mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+              </mat-icon-button>
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                Le mot de passe est requis
+              </mat-error>
+              <mat-error
+                *ngIf="loginForm.get('password')?.hasError('minlength')"
+              >
+                Le mot de passe doit comporter au moins 6 caractères
+              </mat-error>
             </mat-form-field>
           </div>
 
