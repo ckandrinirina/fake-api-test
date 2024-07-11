@@ -34,6 +34,12 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
+  logout() {
+    this.ls.clear();
+    this.authStore.isAuthenticated = false;
+    this.router.navigate(['auth']);
+  }
+
   setToken(token: string) {
     this.ls.set('token', token);
   }

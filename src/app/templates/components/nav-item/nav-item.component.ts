@@ -20,7 +20,7 @@ export class NavItemComponent {
       icon: 'dashboard',
     },
     {
-      name: 'Devis',
+      name: 'Produits',
       link: ['/products'],
       icon: 'receipt-long',
     },
