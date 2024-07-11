@@ -64,9 +64,11 @@
           <!-- Login button -->
           <div class="d-flex justify-content-center">
             @if (isSubmitting) {
-            <mat-spinner diameter="50"></mat-spinner>
+            <app-loader></app-loader>
             } @else {
-            <div class="d-flex justify-content-center text-lg-start mt-4 pt-2 w-100">
+            <div
+              class="d-flex justify-content-center text-lg-start mt-4 pt-2 w-100"
+            >
               <button
                 mat-flat-button
                 [disabled]="loginForm.invalid"

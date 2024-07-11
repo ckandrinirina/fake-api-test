@@ -1,1 +1,12 @@
-<p>products works!</p>
+<div class="container-fluid mt-2">
+  <h2>Product List</h2>
+  <ng-container *ngIf="productsStore.isFullyLoad$ | async; else loading">
+    <ng-container *ngIf="productsStore.products$ | async as products">
+      <app-products-list [products]="products"></app-products-list>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
