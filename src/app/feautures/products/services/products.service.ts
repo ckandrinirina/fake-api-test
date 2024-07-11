@@ -11,4 +11,8 @@ export class ProductsService {
   getProducts() {
     return this.http.get<Product[]>('products');
   }
+
+  addProducts(product: Product) {
+    return this.http.post<Product, Product>('products', product);
+  }
 }

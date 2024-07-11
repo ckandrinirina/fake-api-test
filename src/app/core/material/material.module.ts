@@ -20,6 +20,7 @@ import {
 } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FrenchMatPaginatorIntl } from '../../shared/Intl/paginator.intl';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -41,6 +42,7 @@ import { FrenchMatPaginatorIntl } from '../../shared/Intl/paginator.intl';
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   exports: [
     MatSidenavModule,
@@ -59,6 +61,7 @@ import { FrenchMatPaginatorIntl } from '../../shared/Intl/paginator.intl';
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: FrenchMatPaginatorIntl }],
 })

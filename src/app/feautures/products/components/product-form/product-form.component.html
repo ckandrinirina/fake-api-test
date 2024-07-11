@@ -1,0 +1,93 @@
+<h2 mat-dialog-title>Ajouter un produit</h2>
+<mat-dialog-content class="mat-typography">
+  @if((categoryStore.isFullyLoad$ | async)) {
+  <form [formGroup]="productForm" class="mt-2">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Titre</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Titre"
+        formControlName="title"
+        required
+      />
+      <mat-error *ngIf="productForm.get('title')?.hasError('required')">
+        Title est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Déscription</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Déscription"
+        formControlName="description"
+        required
+      />
+      <mat-error *ngIf="productForm.get('description')?.hasError('required')">
+        Déscription est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Prix</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="Prix"
+        formControlName="price"
+        required
+      />
+      <mat-error *ngIf="productForm.get('price')?.hasError('required')">
+        Prix est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Image</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Image"
+        formControlName="image"
+        required
+      />
+      <mat-error *ngIf="productForm.get('image')?.hasError('required')">
+        Image est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Catégorie</mat-label>
+      <ng-container *ngIf="categoryStore.category$ | async as categories">
+        <mat-select formControlName="category" required>
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </mat-option>
+        </mat-select>
+      </ng-container>
+      <mat-error *ngIf="productForm.get('category')?.hasError('required')">
+        Catégorie est requise
+      </mat-error>
+    </mat-form-field>
+  </form>
+  }@else {
+  <app-loader></app-loader>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  @if(isSubmiting) {
+  <app-loader></app-loader>
+  } @else {
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button
+    mat-button
+    cdkFocusInitial
+    (click)="onSubmit()"
+    [disabled]="productForm.invalid"
+  >
+    Ajouter
+  </button>
+  }
+</mat-dialog-actions>

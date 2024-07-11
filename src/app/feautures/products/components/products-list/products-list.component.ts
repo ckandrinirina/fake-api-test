@@ -35,6 +35,8 @@ export class ProductsListComponent implements AfterViewInit {
   @Input() set products(value: Product[]) {
     this.allProducts = value;
     this.dataSource = new MatTableDataSource(value);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {

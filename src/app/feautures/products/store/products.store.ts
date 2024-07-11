@@ -41,6 +41,15 @@ export class ProductsStore {
     this.loadUntilCompleted(products$).subscribe();
   }
 
+  addProduct(product: Product) {
+    this.isFullyLoadSubject.next(false);
+    const products = [...this.productsSubject.value];
+    products.push(product);
+    this.productsSubject.next(products);
+    this.filteredProductsSubject.next(products);
+    this.isFullyLoadSubject.next(true);
+  }
+
   filter(filter: ProductFilter) {
     this.isFullyLoadSubject.next(false);
     const filteredProducts = this.productsSubject.value.filter((product) =>
@@ -48,6 +57,10 @@ export class ProductsStore {
     );
     this.filteredProductsSubject.next(filteredProducts);
     this.isFullyLoadSubject.next(true);
+  }
+
+  resetFilter() {
+    this.filteredProductsSubject.next(this.productsSubject.value);
   }
 
   checkFilter(filter: ProductFilter, product: Product): boolean {

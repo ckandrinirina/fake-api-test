@@ -9,6 +9,13 @@
           (onCategoryChange)="handleFilterChange($event)"
         ></app-category-filter>
       </div>
+      <div class="col-3"></div>
+      <div class="col-4"></div>
+      <div class="col-2">
+        <button mat-flat-button (click)="addProduct()" class="pull-right">
+          Ajouter un produit
+        </button>
+      </div>
     </div>
     <app-products-list [products]="products"></app-products-list>
   </ng-container>
