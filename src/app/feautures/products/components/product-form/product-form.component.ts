@@ -1,6 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CoreModule } from '../../../../core/core.module';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CategoryStore } from '../../../categories/store/category.store';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
@@ -33,7 +41,10 @@ export class ProductFormComponent implements OnInit {
       title: ['', Validators.required],
       price: [0, Validators.required],
       category: ['', Validators.required],
-      image: ['https://i.pravatar.cc', Validators.required],
+      image: [
+        'https://i.pravatar.cc',
+        [Validators.required, this.urlValidator()],
+      ],
       description: ['', Validators.required],
     });
   }
@@ -45,9 +56,27 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
+  onImageChange() {
+    console.log(this.productForm.get('image')?.errors);
+  }
+
   onSubmit() {
     this.isSubmiting = true;
     this.isEditing ? this.doUpdate() : this.doCreate();
+  }
+
+  urlValidator(): ValidatorFn {
+    const urlPattern =
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (value === null || value === undefined || value === '') {
+        return null;
+      }
+
+      const valid = urlPattern.test(value);
+      return valid ? null : { url: { value: control.value } };
+    };
   }
 
   private doUpdate() {

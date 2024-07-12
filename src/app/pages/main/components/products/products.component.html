@@ -4,13 +4,22 @@
   @if((productsStore.isFullyLoad$ | async)) {
   <ng-container *ngIf="productsStore.filteredProducts$ | async as products">
     <div class="row">
-      <div class="col-3">
+      <div class="col-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <input
+            matInput
+            placeholder="Rechercher"
+            [(ngModel)]="filter.search"
+            (keyup)="handleSearch()"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-2">
         <app-category-filter
           (onCategoryChange)="handleFilterChange($event)"
         ></app-category-filter>
       </div>
-      <div class="col-3"></div>
-      <div class="col-4"></div>
+      <div class="col-6"></div>
       <div class="col-2">
         <button mat-flat-button (click)="addProduct()" class="pull-right">
           Ajouter un produit

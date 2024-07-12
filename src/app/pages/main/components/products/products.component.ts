@@ -13,8 +13,8 @@ import { ProductsService } from '../../../../feautures/products/services/product
 export class ProductsComponent implements OnInit {
   filter: ProductFilter = {
     category: [],
+    search: '',
   };
-
   isLoading = false;
 
   constructor(
@@ -29,6 +29,10 @@ export class ProductsComponent implements OnInit {
 
   handleFilterChange(categories: string[]) {
     this.filter.category = categories;
+    this.productsStore.filter(this.filter);
+  }
+
+  handleSearch() {
     this.productsStore.filter(this.filter);
   }
 

@@ -84,10 +84,17 @@ export class ProductsStore {
   }
 
   checkFilter(filter: ProductFilter, product: Product): boolean {
+    const searchCheck =
+      product.title.toLowerCase().includes(filter.search.toLowerCase()) ||
+      product.description.toLowerCase().includes(filter.search.toLowerCase()) ||
+      product.category.toLowerCase().includes(filter.search.toLowerCase()) ||
+      product.price.toString().includes(filter.search);
+
     if (filter.category.length === 0) {
-      return true;
+      return searchCheck;
     }
-    return filter.category.includes(product.category);
+
+    return filter.category.includes(product.category) && searchCheck;
   }
 
   private loadUntilCompleted<T>(obs$: Observable<T>): Observable<T> {

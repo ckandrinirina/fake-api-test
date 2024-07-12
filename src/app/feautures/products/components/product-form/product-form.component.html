@@ -53,6 +53,9 @@
         formControlName="image"
         required
       />
+      <mat-error *ngIf="productForm.get('image')?.hasError('url')">
+        Image doit être une URL valide
+      </mat-error>
       <mat-error *ngIf="productForm.get('image')?.hasError('required')">
         Image est requis
       </mat-error>
