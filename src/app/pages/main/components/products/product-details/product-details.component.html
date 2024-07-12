@@ -1,4 +1,7 @@
 <div class="container-fluid mt-2">
+  <button mat-icon-button matTooltip="retourner" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
   <h3>Détails du produit</h3>
   @if ((product$ | async); as product) {
   <product-details [product]="product"></product-details>

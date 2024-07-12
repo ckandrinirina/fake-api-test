@@ -20,4 +20,8 @@ export class ProductDetailsComponent implements OnInit {
     const id = this.activatedRoute.snapshot.params['id'];
     this.product$ = this.productService.getProductById(id);
   }
+
+  back() {
+    window.history.back();
+  }
 }
