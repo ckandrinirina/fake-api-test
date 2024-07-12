@@ -3,6 +3,8 @@ import { ProductsStore } from '../../../../feautures/products/store/products.sto
 import { ProductFilter } from '../../../../feautures/products/models/product-filter.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductFormComponent } from '../../../../feautures/products/components/product-form/product-form.component';
+import { Product } from '../../../../feautures/products/models/product.model';
+import { ProductsService } from '../../../../feautures/products/services/products.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -13,7 +15,13 @@ export class ProductsComponent implements OnInit {
     category: [],
   };
 
-  constructor(public productsStore: ProductsStore, private dialog: MatDialog) {}
+  isLoading = false;
+
+  constructor(
+    public productsStore: ProductsStore,
+    private dialog: MatDialog,
+    private productService: ProductsService
+  ) {}
 
   ngOnInit(): void {
     this.productsStore.resetFilter();
@@ -32,6 +40,26 @@ export class ProductsComponent implements OnInit {
 
     dialog$.afterClosed().subscribe(() => {
       this.productsStore.resetFilter();
+    });
+  }
+
+  edit(product: Product) {
+    const dialog$ = this.dialog.open(ProductFormComponent, {
+      disableClose: true,
+      width: '600px',
+      data: product,
+    });
+
+    dialog$.afterClosed().subscribe(() => {
+      this.productsStore.resetFilter();
+    });
+  }
+
+  delete(product: Product) {
+    this.isLoading = true;
+    this.productService.deleteProduct(product).subscribe(() => {
+      this.productsStore.deleteProduct(product);
+      this.isLoading = false;
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CoreModule } from '../../../../core/core.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,7 +6,8 @@ import { CategoryStore } from '../../../categories/store/category.store';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 import { ProductsService } from '../../services/products.service';
 import { ProductsStore } from '../../store/products.store';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -15,16 +16,18 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss',
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
   isSubmiting = false;
+  isEditing = false;
 
   constructor(
     private fb: FormBuilder,
     public categoryStore: CategoryStore,
     private productService: ProductsService,
     private productStore: ProductsStore,
-    private matDialogRef: MatDialogRef<ProductFormComponent>
+    private matDialogRef: MatDialogRef<ProductFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Product
   ) {
     this.productForm = this.fb.group({
       title: ['', Validators.required],
@@ -35,12 +38,35 @@ export class ProductFormComponent {
     });
   }
 
+  ngOnInit() {
+    if (this.data) {
+      this.productForm.patchValue(this.data);
+      this.isEditing = true;
+    }
+  }
+
   onSubmit() {
     this.isSubmiting = true;
-    this.productService.addProducts(this.productForm.value).subscribe((product) => {
-      this.productStore.addProduct(product);
-      this.matDialogRef.close();
-      this.isSubmiting = false;
-    });
+    this.isEditing ? this.doUpdate() : this.doCreate();
+  }
+
+  private doUpdate() {
+    this.productService
+      .updateProduct(this.data.id, this.productForm.value)
+      .subscribe((product) => {
+        this.productStore.updateProduct(product);
+        this.matDialogRef.close();
+        this.isSubmiting = false;
+      });
+  }
+
+  private doCreate() {
+    this.productService
+      .addProducts(this.productForm.value)
+      .subscribe((product) => {
+        this.productStore.addProduct(product);
+        this.matDialogRef.close();
+        this.isSubmiting = false;
+      });
   }
 }

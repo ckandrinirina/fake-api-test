@@ -1,7 +1,7 @@
 <div class="container-fluid mt-2">
   <h3>Liste des produits</h3>
 
-  @if(productsStore.isFullyLoad$ | async) {
+  @if((productsStore.isFullyLoad$ | async)) {
   <ng-container *ngIf="productsStore.filteredProducts$ | async as products">
     <div class="row">
       <div class="col-3">
@@ -17,7 +17,15 @@
         </button>
       </div>
     </div>
-    <app-products-list [products]="products"></app-products-list>
+    @if (!isLoading) {
+    <app-products-list
+      [products]="products"
+      (deleteProduct)="delete($event)"
+      (editProduct)="edit($event)"
+    ></app-products-list>
+    } @else {
+    <app-loader></app-loader>
+    }
   </ng-container>
   } @else {
   <app-loader></app-loader>

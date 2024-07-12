@@ -50,6 +50,26 @@ export class ProductsStore {
     this.isFullyLoadSubject.next(true);
   }
 
+  updateProduct(product: Product) {
+    this.isFullyLoadSubject.next(false);
+    const products = this.productsSubject.value.map((p) =>
+      p.id === product.id ? product : p
+    );
+    this.productsSubject.next(products);
+    this.filteredProductsSubject.next(products);
+    this.isFullyLoadSubject.next(true);
+  }
+
+  deleteProduct(product: Product) {
+    this.isFullyLoadSubject.next(false);
+    const products = this.productsSubject.value.filter(
+      (p) => p.id !== product.id
+    );
+    this.productsSubject.next(products);
+    this.filteredProductsSubject.next(products);
+    this.isFullyLoadSubject.next(true);
+  }
+
   filter(filter: ProductFilter) {
     this.isFullyLoadSubject.next(false);
     const filteredProducts = this.productsSubject.value.filter((product) =>

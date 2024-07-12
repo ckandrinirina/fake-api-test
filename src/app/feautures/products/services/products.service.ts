@@ -15,4 +15,12 @@ export class ProductsService {
   addProducts(product: Product) {
     return this.http.post<Product, Product>('products', product);
   }
+
+  deleteProduct(product: Product) {
+    return this.http.delete(`products/${product.id}`);
+  }
+
+  updateProduct(id: number, product: Product) {
+    return this.http.put<Product, Product>(`products/${id}`, product);
+  }
 }

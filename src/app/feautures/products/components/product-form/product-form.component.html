@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Ajouter un produit</h2>
+<h2 mat-dialog-title>{{ isEditing ? "Modifier" : "Ajouter" }} un produit</h2>
 <mat-dialog-content class="mat-typography">
   @if((categoryStore.isFullyLoad$ | async)) {
   <form [formGroup]="productForm" class="mt-2">
@@ -87,7 +87,7 @@
     (click)="onSubmit()"
     [disabled]="productForm.invalid"
   >
-    Ajouter
+    {{ isEditing ? "Modifier" : "Ajouter" }}
   </button>
   }
 </mat-dialog-actions>
