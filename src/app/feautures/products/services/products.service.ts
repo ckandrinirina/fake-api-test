@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
 import { HttpService } from '../../../shared/services/http.service';
-import { ProductsByCategoryConfig } from '../models/productStats';
+import { BarStatsConfig, PiesStatsConfig } from '../models/productStats';
 
 @Injectable({
   providedIn: 'root',
@@ -29,10 +29,16 @@ export class ProductsService {
     return this.http.put<Product, Product>(`products/${id}`, product);
   }
 
+  getBestProduct(products: Product[]): Product {
+    return products.reduce((prev, current) =>
+      prev.rating.rate > current.rating.rate ? prev : current
+    );
+  }
+
   buildProductByCategoryConfig(
     products: Product[],
     categories: string[]
-  ): ProductsByCategoryConfig {
+  ): BarStatsConfig {
     return {
       series: [
         {
@@ -48,6 +54,43 @@ export class ProductsService {
       },
       title: {
         text: 'Nombre de produits par categorie',
+      },
+      xaxis: {
+        categories,
+      },
+    };
+  }
+
+  buildAverageRateByCategoryConfig(
+    products: Product[],
+    categories: string[]
+  ): BarStatsConfig {
+    return {
+      series: [
+        {
+          name: 'Note/categorie',
+          data: categories.map((category) => {
+            const productsByCategory = products.filter(
+              (product) => product.category === category
+            );
+            const rate = productsByCategory.reduce(
+              (prev, current) => prev + current.rating.rate,
+              0
+            );
+            return {
+              x: category,
+              y: parseFloat((rate / productsByCategory.length).toFixed(2)),
+              fillColor:
+                rate / productsByCategory.length > 4 ? '#4CAF50' : '#F44336',
+            };
+          }),
+        },
+      ],
+      chart: {
+        type: 'bar',
+      },
+      title: {
+        text: 'Note moyenne par categorie',
       },
       xaxis: {
         categories,

@@ -1,14 +1,24 @@
 <div class="container-fluid mt-2">
   <h1 class="text-center">Dashboard</h1>
-  @if((productsByCategoryConfig$ | async); as productsByCategoryConfig) {
+  @if((stats$ | async); as stats) {
   <div class="row">
-    <div class="col-6">
+    <div class="col-4">
       <apx-chart
-        [series]="productsByCategoryConfig.series"
-        [chart]="productsByCategoryConfig.chart"
-        [title]="productsByCategoryConfig.title"
-        [xaxis]="productsByCategoryConfig.xaxis"
+        [series]="stats.productByCategoryConfig.series"
+        [chart]="stats.productByCategoryConfig.chart"
+        [title]="stats.productByCategoryConfig.title"
+        [xaxis]="stats.productByCategoryConfig.xaxis"
       ></apx-chart>
+      <apx-chart
+        [series]="stats.rateByCategoryConfig.series"
+        [chart]="stats.rateByCategoryConfig.chart"
+        [title]="stats.rateByCategoryConfig.title"
+        [xaxis]="stats.rateByCategoryConfig.xaxis"
+      ></apx-chart>
+    </div>
+    <div class="col-8">
+      <h4 class="text-center">Meilleur produit</h4>
+      <product-details [product]="bestProduct"></product-details>
     </div>
   </div>
   } @else {

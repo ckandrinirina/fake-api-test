@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart } from 'ng-apexcharts';
 import { CategoryStore } from '../../../../feautures/categories/store/category.store';
 import { ProductsStore } from '../../../../feautures/products/store/products.store';
 import { combineLatest, map, Observable } from 'rxjs';
-import { ProductsByCategoryConfig } from '../../../../feautures/products/models/productStats';
+import { BarStatsConfig } from '../../../../feautures/products/models/productStats';
 import { ProductsService } from '../../../../feautures/products/services/products.service';
+import { Product } from '../../../../feautures/products/models/product.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +12,11 @@ import { ProductsService } from '../../../../feautures/products/services/product
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-  productsByCategoryConfig$!: Observable<ProductsByCategoryConfig | null>;
+  stats$!: Observable<{
+    productByCategoryConfig: BarStatsConfig;
+    rateByCategoryConfig: BarStatsConfig;
+  } | null>;
+  bestProduct!: Product;
 
   constructor(
     public categoryStore: CategoryStore,
@@ -21,7 +25,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.productsByCategoryConfig$ = combineLatest([
+    this.stats$ = combineLatest([
       this.categoryStore.isFullyLoad$,
       this.productStore.isFullyLoad$,
       this.productStore.products$,
@@ -29,7 +33,19 @@ export class DashboardComponent implements OnInit {
     ]).pipe(
       map(([isLoadCategories, isLoadProducts, products, categories]) => {
         if (isLoadCategories && isLoadProducts) {
-          return this.productsService.buildProductByCategoryConfig(products, categories);
+          this.bestProduct = this.productsService.getBestProduct(products);
+          return {
+            productByCategoryConfig:
+              this.productsService.buildProductByCategoryConfig(
+                products,
+                categories
+              ),
+            rateByCategoryConfig:
+              this.productsService.buildAverageRateByCategoryConfig(
+                products,
+                categories
+              ),
+          };
         }
         return null;
       })
