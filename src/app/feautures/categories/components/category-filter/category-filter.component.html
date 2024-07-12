@@ -1,5 +1,5 @@
 <mat-form-field appearance="outline" class="w-100">
-  <mat-label>Categories</mat-label>
+  <mat-label>Catégories</mat-label>
   @if(categoryStore.isFullyLoad$ | async) {
   <ng-container *ngIf="categoryStore.category$ | async as categories">
     <mat-select [formControl]="selectedCategories" multiple (selectionChange)="onCategoryChangeHandler($event)">

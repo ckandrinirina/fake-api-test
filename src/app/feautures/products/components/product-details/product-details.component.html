@@ -7,10 +7,6 @@
             <div class="text-center p-4">
               <img id="main-image" [src]="product.image" width="250" />
             </div>
-            <div class="thumbnail text-center">
-              <img [src]="product.image" width="70" />
-              <img [src]="product.image" width="70" />
-            </div>
           </div>
         </div>
         <div class="col-md-6">
@@ -27,12 +23,14 @@
                 <span class="act-price">{{ product.price }} €</span>
               </div>
             </div>
+            @if(!noDetails) {
             <p class="about">
               {{ product.description }}
             </p>
             <p class="about">
               <strong>Stock:</strong> {{ product.rating.count }}
             </p>
+            }
             <div class="sizes mt-5">
               <h6 class="text-uppercase">Note</h6>
               <igc-rating

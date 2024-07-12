@@ -1,5 +1,5 @@
 <div class="container-fluid mt-2">
-  <h1 class="text-center">Dashboard</h1>
+  <h1 class="text-center">Tableaux de bord</h1>
   @if((stats$ | async); as stats) {
   <div class="row">
     <div class="col-4">
@@ -18,7 +18,7 @@
     </div>
     <div class="col-8">
       <h4 class="text-center">Meilleur produit</h4>
-      <product-details [product]="bestProduct"></product-details>
+      <product-details [product]="bestProduct" [noDetails]="true"></product-details>
     </div>
   </div>
   } @else {

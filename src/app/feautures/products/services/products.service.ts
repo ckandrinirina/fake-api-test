@@ -51,6 +51,7 @@ export class ProductsService {
       ],
       chart: {
         type: 'bar',
+        height: '300px',
       },
       title: {
         text: 'Nombre de produits par categorie',
@@ -68,7 +69,7 @@ export class ProductsService {
     return {
       series: [
         {
-          name: 'Note/categorie',
+          name: 'Note/catégorie',
           data: categories.map((category) => {
             const productsByCategory = products.filter(
               (product) => product.category === category
@@ -88,6 +89,7 @@ export class ProductsService {
       ],
       chart: {
         type: 'bar',
+        height: '300px',
       },
       title: {
         text: 'Note moyenne par categorie',
