@@ -32,7 +32,8 @@ export class ProductsListComponent implements AfterViewInit, OnInit {
     'price',
     'category',
     'image',
-    'rating',
+    'rating.rate',
+    'rating.count',
     'actions',
   ];
   dataSource!: MatTableDataSource<Product>;
