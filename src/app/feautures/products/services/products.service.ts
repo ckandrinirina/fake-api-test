@@ -42,7 +42,7 @@ export class ProductsService {
     return {
       series: [
         {
-          name: 'Produit/Categorie',
+          name: 'Produit/Catégorie',
           data: categories.map((category) => {
             return products.filter((product) => product.category === category)
               .length;
@@ -54,7 +54,7 @@ export class ProductsService {
         height: '300px',
       },
       title: {
-        text: 'Nombre de produits par categorie',
+        text: 'Nombre de produits par catégorie',
       },
       xaxis: {
         categories,
@@ -92,7 +92,7 @@ export class ProductsService {
         height: '300px',
       },
       title: {
-        text: 'Note moyenne par categorie',
+        text: 'Note moyenne par catégorie',
       },
       xaxis: {
         categories,

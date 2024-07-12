@@ -15,7 +15,7 @@ interface Menu {
 export class NavItemComponent {
   menus: Menu[] = [
     {
-      name: 'Tableaux de bord',
+      name: 'Tableau de bord',
       link: ['/dashboard'],
       icon: 'dashboard',
     },
