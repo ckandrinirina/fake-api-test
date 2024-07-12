@@ -1,3 +1,17 @@
 <div class="container-fluid mt-2">
-  test
+  <h1 class="text-center">Dashboard</h1>
+  @if((productsByCategoryConfig$ | async); as productsByCategoryConfig) {
+  <div class="row">
+    <div class="col-6">
+      <apx-chart
+        [series]="productsByCategoryConfig.series"
+        [chart]="productsByCategoryConfig.chart"
+        [title]="productsByCategoryConfig.title"
+        [xaxis]="productsByCategoryConfig.xaxis"
+      ></apx-chart>
+    </div>
+  </div>
+  } @else {
+  <app-loader></app-loader>
+  }
 </div>

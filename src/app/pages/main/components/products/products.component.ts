@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductFormComponent } from '../../../../feautures/products/components/product-form/product-form.component';
 import { Product } from '../../../../feautures/products/models/product.model';
 import { ProductsService } from '../../../../feautures/products/services/products.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -20,7 +21,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     public productsStore: ProductsStore,
     private dialog: MatDialog,
-    private productService: ProductsService
+    private productService: ProductsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,10 @@ export class ProductsComponent implements OnInit {
     dialog$.afterClosed().subscribe(() => {
       this.productsStore.resetFilter();
     });
+  }
+
+  view(product: Product) {
+    this.router.navigate(['/product', product.id]);
   }
 
   delete(product: Product) {

@@ -6,6 +6,7 @@ import { LoginLayoutComponent } from '../../layouts/components/login-layout/logi
 import { LoginComponent } from '../auth/components/login/login.component';
 import { ProductsComponent } from './components/products/products.component';
 import { AuthGuard } from '../../shared/guard/auth-guard.guard';
+import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'products',
         component: ProductsComponent,
+      },
+      {
+        path: 'product/:id',
+        component: ProductDetailsComponent,
       },
     ],
   },

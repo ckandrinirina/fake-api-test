@@ -51,6 +51,7 @@ export class ProductsListComponent implements AfterViewInit, OnInit {
 
   @Output() deleteProduct = new EventEmitter<Product>();
   @Output() editProduct = new EventEmitter<Product>();
+  @Output() viewProduct = new EventEmitter<Product>();
 
   constructor(private dialog: MatDialog) {}
 
@@ -65,6 +66,10 @@ export class ProductsListComponent implements AfterViewInit, OnInit {
 
   edit(product: Product) {
     this.editProduct.emit(product);
+  }
+
+  view(product: Product) {
+    this.viewProduct.emit(product);
   }
 
   delete(product: Product) {

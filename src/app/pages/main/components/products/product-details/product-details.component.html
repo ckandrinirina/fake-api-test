@@ -1,0 +1,8 @@
+<div class="container-fluid mt-2">
+  <h3>Détails du produit</h3>
+  @if ((product$ | async); as product) {
+  <product-details [product]="product"></product-details>
+  } @else {
+  <app-loader></app-loader>
+  }
+</div>

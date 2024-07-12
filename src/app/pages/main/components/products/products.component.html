@@ -31,6 +31,7 @@
       [products]="products"
       (deleteProduct)="delete($event)"
       (editProduct)="edit($event)"
+      (viewProduct)="view($event)"
     ></app-products-list>
     } @else {
     <app-loader></app-loader>

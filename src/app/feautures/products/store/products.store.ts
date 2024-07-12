@@ -43,6 +43,10 @@ export class ProductsStore {
 
   addProduct(product: Product) {
     this.isFullyLoadSubject.next(false);
+    product.rating = {
+      rate: 0,
+      count: 0,
+    };
     const products = [...this.productsSubject.value];
     products.push(product);
     this.productsSubject.next(products);
@@ -53,7 +57,7 @@ export class ProductsStore {
   updateProduct(product: Product) {
     this.isFullyLoadSubject.next(false);
     const products = this.productsSubject.value.map((p) =>
-      p.id === product.id ? product : p
+      p.id === product.id ? { ...product, rating: p.rating } : p
     );
     this.productsSubject.next(products);
     this.filteredProductsSubject.next(products);
