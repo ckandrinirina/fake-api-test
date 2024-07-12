@@ -5,6 +5,8 @@ export interface Product {
   description: string;
   category: string;
   image: string;
+  flatRate?: number;
+  flateCount?: number;
   rating: {
     rate: number;
     count: number;

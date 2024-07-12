@@ -32,8 +32,8 @@ export class ProductsListComponent implements AfterViewInit, OnInit {
     'price',
     'category',
     'image',
-    'rating.rate',
-    'rating.count',
+    'flateRate',
+    'flateCount',
     'actions',
   ];
   dataSource!: MatTableDataSource<Product>;
@@ -44,7 +44,11 @@ export class ProductsListComponent implements AfterViewInit, OnInit {
 
   @Input() set products(value: Product[]) {
     this.allProducts = value;
-    this.dataSource = new MatTableDataSource(value);
+    this.dataSource = new MatTableDataSource(
+      value.map(
+        (product) => ({ ...product, flateRate: product.rating.rate, flateCount: product.rating.count } as Product)
+      )
+    );
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
