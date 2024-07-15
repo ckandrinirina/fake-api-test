@@ -16,7 +16,6 @@ export class ProductDetailsUiComponent implements OnInit {
   @Input() noDetails!: boolean;
 
   ngOnInit(): void {
-    console.log(this.noDetails)
     defineComponents(IgcRatingComponent);
   }
 }

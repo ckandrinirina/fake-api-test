@@ -41,6 +41,15 @@ export class ProductsStore {
     this.loadUntilCompleted(products$).subscribe();
   }
 
+  getProductById(id: number): Observable<Product> {
+    return this.products$.pipe(
+      concatMap((products) => {
+        const product = products.find((p) => p.id === id);
+        return product ? of(product) : this.productsService.getProductById(id);
+      })
+    );
+  }
+
   addProduct(product: Product) {
     this.isFullyLoadSubject.next(false);
     product.rating = {

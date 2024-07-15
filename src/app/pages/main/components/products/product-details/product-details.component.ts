@@ -3,6 +3,7 @@ import { ProductsService } from '../../../../../feautures/products/services/prod
 import { Observable } from 'rxjs';
 import { Product } from '../../../../../feautures/products/models/product.model';
 import { ActivatedRoute } from '@angular/router';
+import { ProductsStore } from '../../../../../feautures/products/store/products.store';
 
 @Component({
   selector: 'app-product-details',
@@ -12,13 +13,13 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductDetailsComponent implements OnInit {
   product$!: Observable<Product>;
   constructor(
-    private productService: ProductsService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private productStore: ProductsStore
   ) {}
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id'];
-    this.product$ = this.productService.getProductById(id);
+    this.product$ = this.productStore.getProductById(parseInt(id));
   }
 
   back() {
